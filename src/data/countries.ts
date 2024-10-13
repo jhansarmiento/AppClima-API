@@ -11,5 +11,4 @@ export const countries: Country[] = [
     { code: 'CA', name: 'Canadá' },
     { code: 'DO', name: 'República Dominicana' },
     { code: 'NO', name: 'Noruega' },
-    { code: 'ES', name: 'España' }
   ]

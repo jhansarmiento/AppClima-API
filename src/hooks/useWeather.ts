@@ -5,12 +5,12 @@ export default function useWeather () {
 
     const fecthWeather = async (search : SearchType) => {
 
-        const appId = '140a7e5dffe9543918892d68bc49318c'
+        const appId = import.meta.env.VITE_API_KEY
         
         try {
             const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`
 
-            const data = await axios(geoUrl)
+            const {data} = await axios(geoUrl)
             console.log(data)
 
         } catch (error) {
