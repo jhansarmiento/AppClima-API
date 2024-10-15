@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { SearchType, Weather } from '../types'
 
-// Type Guard
+// Type Guard o Assertion
 function isWeatherResponse(weather : unknown) : weather is Weather {
     return (
         Boolean(weather) &&
@@ -25,12 +25,14 @@ export default function useWeather () {
             const {data} = await axios(geoUrl)
             const lat = data[0].lat
             const lon = data[0].lon
-            
+
+            // Type Guard
             const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appId}`
             const { data : weatherResult} = await axios(weatherUrl)
-            // Type Guard
             const result = isWeatherResponse(weatherResult)
-            console.log(result)
+            if(result) {
+                console.log(weatherResult.name)
+            }
 
         } catch (error) {
             console.log(error)
