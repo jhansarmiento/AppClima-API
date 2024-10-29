@@ -28,7 +28,7 @@ export default function Form({ fecthWeather }: FormProps) {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (Object.values(search).includes("")) {
-      setAlert("Llena todos los campos perro!");
+      setAlert("Llena todos los campos");
       return;
     }
     fecthWeather(search);

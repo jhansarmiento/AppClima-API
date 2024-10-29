@@ -46,7 +46,7 @@ export default function useWeather () {
 
             // Comprueba si existe la Ciudad buscada
             if(!data[0]) {
-                console.log("Ciudad No Encontrada")
+                setnotFound(true)
                 return
             }
 
@@ -60,14 +60,13 @@ export default function useWeather () {
             const result = WeatherSchema.safeParse(weatherResult)
 
             if(result.success) {
-                setnotFound(true)
-                return
+                setWeather(result.data)
             }
             
 
         } catch (error) {
             console.log(error)
-            console.log('consultando la sapa perra API')
+            console.log('consultando la API')
         } finally {
             setLoading(false)
         }

@@ -15,8 +15,8 @@ function App() {
       <div className="container">
         <Form fecthWeather={fecthWeather} />
         {loading && <Spinner />}
-        {hasWeatherData && <WeatherDetail weather={weather} />}
         {notFound && <Alert>Ciudad No Encontrada</Alert>}
+        {hasWeatherData && <WeatherDetail weather={weather} />}
       </div>
     </>
   );
