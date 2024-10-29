@@ -11,8 +11,8 @@ export type Country = {
 export type Weather = {
     name : string
     main : {
-        temp : 296.03
-        temp_max : 296.03
-        temp_min : 296.03
+        temp : number
+        temp_max : number
+        temp_min : number
     }
 }
