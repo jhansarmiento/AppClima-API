@@ -1,21 +1,30 @@
 import axios from 'axios'
-import { object, string, number, InferOutput, parse } from 'valibot'
+import { z } from 'zod'
+import { useState } from 'react'
 import { SearchType } from '../types'
 
-// Valibot
-// Al igual que en ZOD creamos primero el schema que será una especia de Type
-const WeatherSchema = object({
-    name: string(),
-    main: object({
-        temp: number(),
-        temp_max: number(),
-        temp_min: number()
+// ZOD
+// creamos primero el schema que será una especia de Type
+const WeatherSchema = z.object({
+    name: z.string(),
+    main: z.object({
+        temp: z.number(),
+        temp_max: z.number(),
+        temp_min: z.number()
     })
 })
-
-type Weather = InferOutput<typeof WeatherSchema>
+type Weather = z.infer<typeof WeatherSchema>
 
 export default function useWeather () {
+
+    const [ weather, setWeather] = useState<Weather>({
+        name: '',
+        main: {
+            temp: 0,
+            temp_max: 0,
+            temp_min: 0
+        }
+    })
 
     const fecthWeather = async (search : SearchType) => {
 
@@ -30,13 +39,12 @@ export default function useWeather () {
 
             const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appId}`
 
-            // Valibot Guards
+            // ZOD Guards
             const { data : weatherResult} = await axios(weatherUrl)
-            const result = parse(WeatherSchema, weatherResult)
+            const result = WeatherSchema.safeParse(weatherResult)
 
-            if(result) {
-                console.log(result.name)
-                console.log(result.main.temp)
+            if(result.success) {
+                setWeather(result.data)
             }
             
 
@@ -48,6 +56,7 @@ export default function useWeather () {
     }
 
     return {
-        fecthWeather
+        weather,
+        fecthWeather,
     }
 }
