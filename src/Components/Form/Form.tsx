@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from "react";
-import type { SearchType } from "../types";
-import { countries } from "../data/countries";
+import type { SearchType } from "../../types";
+import { countries } from "../../data/countries";
 import "./Form.modules.css";
 import Alert from "../Alert/Alert";
 
